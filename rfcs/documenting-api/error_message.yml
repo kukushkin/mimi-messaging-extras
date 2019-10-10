@@ -1,0 +1,41 @@
+#
+# Specification of the error messages
+#
+#
+
+:error_message:
+  - :error_message_not_found
+  - :error_message_invalid
+  - :error_message_unspecified
+
+:error_message_not_found:
+  error: :string
+  code: "not_found"
+
+:error_message_invalid:
+  error: :string
+  code: "invalid"
+  params:
+    any_attr1:
+      :array: :attribute_error_code
+    any_attr2:
+      :array: :attribute_error_code
+    # etc
+
+:attribute_error_code:
+  - "blank"
+  - "invalid"
+  - "taken"
+  - "not_found"
+
+:error_message_unspecified:
+  error: :string
+  code:
+    - # MAY be empty
+    - :string # MAY contain any value other than "not_found" or "invalid"
+
+
+# Any method of any resource MAY return an error message
+#
+any.resource/method_that_can_fail:
+  return: :error_message

@@ -1,0 +1,69 @@
+#
+# Accounts resource API:
+# accounts/*
+#
+
+# Custom type definitions:
+:account:
+  id: :uid16
+  asset_id: :uid16
+  balance: :decimal
+  created_at: :timestamp
+  updated_at: :timestamp
+
+
+# Creates a new Account
+#
+# Broadcasts:
+#   accounts#created
+#
+accounts/create:
+  params:
+    id:
+      - # optional, a new random ID will be assigned if not specified
+      - :uid16
+    asset_id: :uid16
+  return: :account
+
+# Updates an existing Account, modifies `updated_at`
+#
+# Broadcasts:
+#   accounts#updated
+#
+accounts/update:
+  params:
+    id: :uid16
+  return: :account
+
+# Responds with an Account with given ID
+#
+accounts/show:
+  params:
+    id: :uid16
+  return: :account
+
+# Lists all Accounts
+#
+accounts/list:
+  params:
+    filter_by: # optional filter object with unspecified structure
+    paginate_by: # optional pagination object with unspecified structure
+  return:
+    list:
+      :array: :account
+
+# Broadcasts current state of the Account with given ID
+#
+# Broadcasts:
+#   accounts#updated
+#
+accounts/broadcast:
+  params:
+    id: :uid16
+  return: :account
+
+
+# Definitions of events
+#
+accounts#created: :account
+accounts#updated: :account
